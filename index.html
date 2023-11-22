@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Your Self Created Website</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+        body{
+            padding:0;
+            margin:0;
+            font-family:Arial;
+            display: grid;
+            grid-template-columns:250px auto;
+            height: 100vh;
+        }
+        .element{
+            position: relative;
+        }
+        .delete_button{
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #de4343;
+        }
+        .edit_bar{
+            height: 100%;
+            border-right: 1px solid #dddddd;
+        }
+        .logo_zone{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-bottom:1px solid #dddddd;
+        }
+        .edit_button{
+            color: #333333;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+            border-bottom:1px solid #dddddd;
+        }
+        .menu_bar{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-bottom:1px solid #dddddd;
+            gap: 20px;
+        }
+        .menu_bar_button{
+            color: #FFFFFF;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px;
+            background:#000000;
+        }
+  </style>
+</head>
+<body>
+    <div class="edit_bar">
+        <div>
+            <a class="edit_button add_menu_bar" href="javascript:;">Add Menu Bar</a>
+            <a class="edit_button add_banner" href="javascript:;">Add Banner</a>
+        </div>
+    </div>
+    <div id="main_content">
+        <div class="logo_zone">
+            <img src="https://place-hold.it/200x75/f15959/ffffff?text=LOGO" alt="">
+        </div>
+    </div>
+</body>
+<script>
+    const delete_button = '<a class="delete_button" href="javascript:;">Delete</a>'
+    const menu_bar = '<div class="menu_bar element">\
+            <a class="menu_bar_button" href="javascript:;">HOME</a>\
+            <a class="menu_bar_button" href="javascript:;">GALLERY</a>\
+            <a class="menu_bar_button" href="javascript:;">PRODUCTS</a>\
+            <a class="menu_bar_button" href="javascript:;">ABOUT US</a>\
+            <a class="menu_bar_button" href="javascript:;">CONTACT</a>\
+        </div>';
+    
+    const banner = '<div class="banners">\
+            <img src="https://place-hold.it/1000x275/f15959/ffffff?text=BANNER" width="100%">\
+        </div>';
+    
+        $('.add_menu_bar').click(function(){
+            $('#main_content').append(menu_bar);
+        })
+
+        $('.add_banner').click(function(){
+            $('#main_content').append(banner);
+        })
+
+        $(document).on('mouseenter','.element',function(){
+            $(this).append(delete_button);
+        })
+        $(document).on('mouseleave','.element',function(){
+            $(this).children('.delete_button').remove();
+        })
+
+        $(document).on('click','.delete_button',function(){
+            $(this).parent().remove();
+        })
+
+</script>
+</html>
