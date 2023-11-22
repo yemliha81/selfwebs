@@ -5,6 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+				
   <style>
         body{
             padding:0;
@@ -14,14 +17,45 @@
             grid-template-columns:250px auto;
             height: 100vh;
         }
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        @media (min-width: 768px) {
+            .container {
+                width: 750px;
+            }
+        }
+        @media (min-width: 992px) {
+            .container {
+                width: 970px;
+            }
+        }
+        @media (min-width: 1200px) {
+        .container {
+            width: 1170px;
+        }
+        }
         .element{
             position: relative;
+            margin-bottom:30px;
         }
         .delete_button{
             position: absolute;
             top: 15px;
             right: 15px;
             color: #de4343;
+            display: inline-flex;
+            background-color: #ffffff;
+            border:1px solid #000000;
+            border-radius: 5px;
+            text-decoration: none;
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
         }
         .edit_bar{
             height: 100%;
@@ -57,6 +91,36 @@
             padding: 10px;
             background:#000000;
         }
+        .image_content{
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+        }
+        
+        .image_content > .content{
+            padding: 15px;
+        }
+        .image_content > .content > .content_title{
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .image_content2{
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+        }
+        .image_content2 > .content{
+            padding: 15px;
+        }
+        .image_content2 > .content > .content_title{
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .line{
+            margin:30px 0;
+        }
   </style>
 </head>
 <body>
@@ -64,34 +128,106 @@
         <div>
             <a class="edit_button add_menu_bar" href="javascript:;">Add Menu Bar</a>
             <a class="edit_button add_banner" href="javascript:;">Add Banner</a>
+            <a class="edit_button add_carousel" href="javascript:;">Add Carousel</a>
+            <a class="edit_button add_image_content" href="javascript:;">Add Image + Content</a>
+            <a class="edit_button add_image_content2" href="javascript:;">Add Content + Image</a>
+            <a class="edit_button add_line" href="javascript:;">Add Horizontal Line</a>
         </div>
     </div>
     <div id="main_content">
         <div class="logo_zone">
-            <img src="https://place-hold.it/200x75/f15959/ffffff?text=LOGO" alt="">
+            <img src="https://place-hold.it/200x75/000000/ffffff?text=LOGO" alt="">
         </div>
     </div>
 </body>
 <script>
-    const delete_button = '<a class="delete_button" href="javascript:;">Delete</a>'
+    const delete_button = '<a class="delete_button" href="javascript:;">x</a>'
     const menu_bar = '<div class="menu_bar element">\
-            <a class="menu_bar_button" href="javascript:;">HOME</a>\
-            <a class="menu_bar_button" href="javascript:;">GALLERY</a>\
-            <a class="menu_bar_button" href="javascript:;">PRODUCTS</a>\
-            <a class="menu_bar_button" href="javascript:;">ABOUT US</a>\
-            <a class="menu_bar_button" href="javascript:;">CONTACT</a>\
-        </div>';
+                        <a class="menu_bar_button" href="javascript:;">HOME</a>\
+                        <a class="menu_bar_button" href="javascript:;">GALLERY</a>\
+                        <a class="menu_bar_button" href="javascript:;">PRODUCTS</a>\
+                        <a class="menu_bar_button" href="javascript:;">ABOUT US</a>\
+                        <a class="menu_bar_button" href="javascript:;">CONTACT</a>\
+                    </div>';
+    const image_content = '<div class="container">\
+                            <div class="image_content element">\
+                                <div>\
+                                    <img src="https://place-hold.it/400x240/000000/ffffff?text=image" width="100%">\
+                                </div>\
+                                <div class="content">\
+                                    <div class="content_title" contenteditable="true">\
+                                        Content Title\
+                                    </div>\
+                                    <div class="content_text" contenteditable="true">\
+                                        Lorem ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        Lorem ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>';
+    const image_content_2 = '<div class="container">\
+                            <div class="image_content2 element">\
+                                <div class="content">\
+                                    <div class="content_title" contenteditable="true">\
+                                        Content Title\
+                                    </div>\
+                                    <div class="content_text" contenteditable="true">\
+                                        Lorem ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        Lorem ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                        ipsum dolor sit amet, dolar impus lorem sit memet, ipsum dolor sit amet, dolar impus lorem sit memet, \
+                                    </div>\
+                                </div>\
+                                <div>\
+                                    <img src="https://place-hold.it/400x240/000000/ffffff?text=image" width="100%">\
+                                </div>\
+                            </div>\
+                        </div>';
     
-    const banner = '<div class="banners">\
-            <img src="https://place-hold.it/1000x275/f15959/ffffff?text=BANNER" width="100%">\
-        </div>';
+    const banner = '<div class="banners element">\
+                        <img src="https://place-hold.it/1000x275/000000/ffffff?text=BANNER" width="100%">\
+                    </div>';
+    const carousel = '<div class="carousel element">\
+                        <div><img src="https://place-hold.it/1000x275/666666/ffffff?text=BANNER" >\</div>\
+                        <div><img src="https://place-hold.it/1000x275/000000/ffffff?text=BANNER" >\</div>\
+                    </div>';
+
+    const line = '<div class="line element">\
+                       <hr/>\
+                    </div>';
     
         $('.add_menu_bar').click(function(){
             $('#main_content').append(menu_bar);
         })
 
+        $('.add_line').click(function(){
+            $('#main_content').append(line);
+        })
+
         $('.add_banner').click(function(){
             $('#main_content').append(banner);
+        })
+
+        $('.add_carousel').click(function(){
+            $('#main_content').append(carousel);
+            $('.carousel').slick({
+                arrows:false,
+                autoplay:true
+            });
+        })
+
+        $('.add_image_content').click(function(){
+            $('#main_content').append(image_content);
+        })
+
+        $('.add_image_content2').click(function(){
+            $('#main_content').append(image_content_2);
         })
 
         $(document).on('mouseenter','.element',function(){
